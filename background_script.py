@@ -17,7 +17,8 @@ PARENT_PATH = ".."
 SETTINGS_PATH = os.path.join(PARENT_PATH, "settings_org.json")
 FUNC_FILE_NAME = "code.txt"
 VSCODE_PATH = os.path.join(".vscode", "settings.json")
-DATA_PATH = os.path.join(PARENT_PATH, "data")
+DATA_PATH = "data"
+DATA_PATH_EXP = os.path.join(PARENT_PATH, DATA_PATH)
 COLS = ["Trial Number", "Background", "Foreground", "Completion Time", "Answer Correct", "True Answer", "Subject Answer"]
 
 
@@ -112,12 +113,11 @@ def run_trial(trial_module_file):
 
         while True:
             try:
-                #user_answer = input("Answer:")
-                user_answer = 1000000
+                user_answer = input("Answer:")
                 user_answer = int(user_answer)
                 break
             except:
-                print("Invalid input, didn't get an int!")
+                print("Invalid input, didn't get an integer!")
 
         end_time = time.time()
 
@@ -126,7 +126,7 @@ def run_trial(trial_module_file):
 
         close_all_files()
 
-        #input("Press enter to move onto next question.")
+        input("Press enter to move onto next question.")
 
     rm_files()
 
@@ -136,8 +136,8 @@ def run_trial(trial_module_file):
 if __name__ == "__main__":
     random.seed(RANDOM_SEED)
 
-    if not os.path.exists(DATA_PATH):
-        os.mkdir(DATA_PATH)
+    if not os.path.exists(DATA_PATH_EXP):
+        os.mkdir(DATA_PATH_EXP)
     
     trial_modules = [trial_1_func, trial_2_func, trial_3_func]
     results = []
@@ -147,4 +147,4 @@ if __name__ == "__main__":
 
     print(results)
     df = pd.DataFrame(results, columns=COLS)
-    df.to_csv(os.path.join(DATA_PATH, "answers_" + str(time.time()) + ".csv"), sep=",", index=False)
+    df.to_csv(os.path.join(DATA_PATH_EXP, "answers_" + str(time.time()) + ".csv"), sep=",", index=False)

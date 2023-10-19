@@ -5,8 +5,6 @@ import numpy as np
 from scipy.stats import friedmanchisquare
 from statsmodels.stats.anova import AnovaRM
 
-DATA_PATH = "data"
-
 df = pd.DataFrame()
 
 for x in os.listdir(DATA_PATH):
@@ -26,7 +24,7 @@ for i, row in enumerate(range(0, n_rows, 6)):
 
 groups_df = pd.DataFrame(groups_df, columns=["Subject", "Contrast", "Time"])
 
-test = friedmanchisquare(*groups)
-print(test)
-anova = AnovaRM(data=groups_df, depvar="Time", subject="Subject", within=["Contrast"]).fit()
-print(anova)
+friedman_test = friedmanchisquare(*groups)
+print(friedman_test)
+repeated_anova = AnovaRM(data=groups_df, depvar="Time", subject="Subject", within=["Contrast"]).fit()
+print(repeated_anova)
