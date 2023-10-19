@@ -19,6 +19,7 @@
         "editorLineNumber.activeForeground": "",
         "editor.selectionBackground": "",
         "editor.selectionHighlightBackground": "",
+        "editorCursor.foreground": "",
         "editor.inactiveSelectionBackground": "",
         "editor.findMatchHighlightBackground": "",
         "editor.findRangeHighlightBackground": "",
@@ -51,5 +52,6 @@
    "editor.guides.indentation": false,
    "editor.rulers": [],
    "editor.matchBrackets": false,
-   "terminal.integrated.shellIntegration.decorationsEnabled": "never"
+   "terminal.integrated.shellIntegration.decorationsEnabled": "never",
+   "files.autoSave": "onFocusChange"
 }
