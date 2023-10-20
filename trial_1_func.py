@@ -31,7 +31,7 @@ def func3(list=[4, 7, 55, 16, 77]):
     
     return count
 
-def func4(list=[5, 8, 33, 3, 9]):
+def func4(list=[3, 24, 33, 3, 9]):
     count = 0
 
     for x in list:

@@ -57,4 +57,3 @@ def func6(list=[7, 7, 7], n=7):
         m -= 1
 
     return m
-

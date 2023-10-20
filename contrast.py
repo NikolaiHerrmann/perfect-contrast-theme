@@ -1,6 +1,8 @@
 
+
 def michelson_contrast(l_min, l_max):
     return abs((l_max - l_min)) / (l_max + l_min)
+
 
 if __name__ == "__main__":
     step_size = 3

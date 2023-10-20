@@ -113,7 +113,7 @@ def run_trial(trial_module_file):
 
         while True:
             try:
-                user_answer = input("Answer:")
+                user_answer = input("What does the function return?\nAnswer:")
                 user_answer = int(user_answer)
                 break
             except:
