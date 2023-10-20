@@ -25,9 +25,9 @@ def func3(list=[4, 7, 55, 16, 77]):
 
     for x in list:
         if x % 2 == 0:
-            count -= 2
-        else:
             count += 1
+        else:
+            count -= 1
     
     return count
 
@@ -47,9 +47,9 @@ def func5(list=[9, 9, 55, 1, 5]):
 
     for x in list:
         if x % 5 == 0:
-            count += 2
+            count += 1
         else:
-            count += 2
+            count -= 1
 
     return count
 
@@ -58,8 +58,8 @@ def func6(list=[7, 9, 4, 5, 3]):
 
     for x in list:
         if x % 2 == 0:
-            count += 2
+            count += 1
         else:
-            count += 0
+            count -= 1
     
     return count

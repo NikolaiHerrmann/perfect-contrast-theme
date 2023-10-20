@@ -145,6 +145,6 @@ if __name__ == "__main__":
     for trial in trial_modules:
         results += run_trial(trial)
 
-    print(results)
+    print("\nResults:\n", results)
     df = pd.DataFrame(results, columns=COLS)
     df.to_csv(os.path.join(DATA_PATH_EXP, "answers_" + str(time.time()) + ".csv"), sep=",", index=False)
