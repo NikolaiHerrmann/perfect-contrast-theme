@@ -48,6 +48,9 @@ def update_color(dic, background, foreground):
 
 
 def rgb_to_hex(r, g, b):
+    """
+    https://stackoverflow.com/questions/3380726/converting-an-rgb-color-tuple-to-a-hexidecimal-string
+    """
     def in_range(x):
         return x >= 0 and x <= 255
     
