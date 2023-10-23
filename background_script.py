@@ -10,7 +10,6 @@ from pynput.keyboard import Key, Controller
 
 
 KEYBOARD = Controller()
-RANDOM_SEED = 42
 CONTRASTS = [(0, 255), (42, 212), (85, 170)]
 CONTRASTS_BOTH = CONTRASTS + [x[::-1] for x in CONTRASTS]
 PARENT_PATH = ".."
@@ -137,8 +136,6 @@ def run_trial(trial_module_file):
 
 
 if __name__ == "__main__":
-    random.seed(RANDOM_SEED)
-
     if not os.path.exists(DATA_PATH_EXP):
         os.mkdir(DATA_PATH_EXP)
     
