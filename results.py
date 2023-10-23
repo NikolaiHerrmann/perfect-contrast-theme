@@ -13,18 +13,27 @@ import os
 
 
 X_LABEL = "Trial Number (Coding Task)"
-LABELS = {0: "High Black-Back", 1: "Mid Black-Back", 2: "Low Black-Back",
-          3: "High White-Back", 4: "Mid White-Back", 5: "Low White-Back"}
+LABELS = {0: "High - Black", 1: "Mid - Black", 2: "Low - Black",
+          3: "High - White", 4: "Mid - White", 5: "Low - White"}
 HATCH_TYPE = ["//", "//", "//", "\\", "\\", "\\"]
 
-colors = np.asarray(CONTRASTS_BOTH) / 255
-back_colors, fore_colors = colors[:, 0], colors[:, 1]
-
-back_colors = np.tile(back_colors, (3, 1)).T.tolist()
-fore_colors = np.tile(fore_colors, (3, 1)).T
+BACK_COLORS = None
+FORE_COLORS = None
 
 plt.rcParams['hatch.linewidth'] = 0.5
 FIGURE_PATH = "figures"
+
+
+def set_colors():
+    global BACK_COLORS, FORE_COLORS
+
+    def rep(x):
+        return np.tile(x, (3, 1)).T
+
+    colors = np.asarray(CONTRASTS_BOTH) / 255
+
+    BACK_COLORS = rep(colors[:, 0]).tolist()
+    FORE_COLORS = rep(colors[:, 1])
 
 
 def anova(df):
@@ -82,20 +91,20 @@ def make_theme_col(df):
     df["Theme"] = theme_index.astype(str) 
 
 
-def apply_patches(plot):
+def get_patches(plot):
     count = 0
     for i in range(18):
         plot.patches[i].set_hatch(HATCH_TYPE[count])
-        plot.patches[i].set_edgecolor(fore_colors[count])
+        plot.patches[i].set_edgecolor(FORE_COLORS[count])
         if (i + 1) % 3 == 0:
             count += 1
 
     patches = []
     for i in range(6):
-        p = mpatches.Patch(facecolor=back_colors[i], edgecolor=fore_colors[i], hatch=HATCH_TYPE[i], label=LABELS[i])
+        p = mpatches.Patch(facecolor=BACK_COLORS[i], edgecolor=FORE_COLORS[i], hatch=HATCH_TYPE[i], label=LABELS[i])
         patches.append(p)
 
-    plt.legend(handles=patches)
+    return patches
 
 
 def save_plot(name):
@@ -105,44 +114,56 @@ def save_plot(name):
 
 def box_plot(df):
     make_theme_col(df)
+
     df["Theme"] = df["Theme"].apply(lambda x: LABELS[int(x)])
-
     df["Trial Number"] = df["Trial Number"].astype(int)
-    boxplot = sns.boxplot(x=df["Trial Number"], y=df["Completion Time"], hue=df["Theme"], palette=back_colors)
-    plt.xlabel(X_LABEL)
-    #sns.move_legend(boxplot, "upper left", bbox_to_anchor=(1, 1))
 
-    apply_patches(boxplot)
+    boxplot = sns.boxplot(x=df["Trial Number"], y=df["Completion Time"], hue=df["Theme"], palette=BACK_COLORS)
+    
+    plt.xlabel(X_LABEL)
+    plt.ylabel("Completion Time (Seconds)")
+    plt.title("Distribution of Completion Times per Theme")
+
+    plt.axvline(x=0.5, color="black", linewidth=0.5)
+    plt.axvline(x=1.5, color="black", linewidth=0.5)
+
+    patches = get_patches(boxplot)
+    plt.legend(handles=patches)
 
     save_plot("boxplot")
     plt.show()
 
 
 def bar_plot(df):
-
     make_theme_col(df)
     
     df["Theme"] += df["Trial Number"].astype(str)
-
     df_ratio = df.groupby("Theme", as_index=False).mean()
     df_ratio["Theme"] = df_ratio["Theme"].apply(lambda x: LABELS[int(x[:-1])]) # remove trial number
     df_ratio["Trial Number"] = df_ratio["Trial Number"].astype(int)
 
-    barplot = sns.barplot(x=df_ratio["Trial Number"], y=df_ratio["Answer Correct"], hue=df_ratio["Theme"], palette=back_colors)
+    barplot = sns.barplot(x=df_ratio["Trial Number"], y=df_ratio["Answer Correct"], hue=df_ratio["Theme"], palette=BACK_COLORS)
+    
     plt.xlabel(X_LABEL)
     plt.ylabel("Correctness Ratio")
     plt.title("Response Correctness across Themes")
 
+    plt.axvline(x=0.5, color="black", linewidth=0.5)
+    plt.axvline(x=1.5, color="black", linewidth=0.5)
+
     # for i in range(18):
     #     barplot.patches[i].set_edgecolor("black")
 
-    apply_patches(barplot)
+    patches = get_patches(barplot)
+    plt.legend(handles=patches, bbox_to_anchor=(1.0, 1.0), loc="upper left")
 
     save_plot("barplot")
     plt.show()
 
 
 if __name__ == "__main__":
+    set_colors()
+
     df = pd.DataFrame()
 
     for x in os.listdir(DATA_PATH):
