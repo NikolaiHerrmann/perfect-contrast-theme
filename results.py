@@ -12,7 +12,7 @@ from statsmodels.stats.contingency_tables import cochrans_q
 import os
 
 
-X_LABEL = "Trial Number (Coding Task)"
+X_LABEL = "Coding Task (Trial Number)"
 LABELS = {0: "High - Black", 1: "Mid - Black", 2: "Low - Black",
           3: "High - White", 4: "Mid - White", 5: "Low - White"}
 HATCH_TYPE = ["//", "//", "//", "\\", "\\", "\\"]
@@ -146,7 +146,7 @@ def bar_plot(df):
     
     plt.xlabel(X_LABEL)
     plt.ylabel("Correctness Ratio")
-    plt.title("Response Correctness across Themes")
+    plt.title("Response Correctness per Theme")
 
     plt.axvline(x=0.5, color="black", linewidth=0.5)
     plt.axvline(x=1.5, color="black", linewidth=0.5)
