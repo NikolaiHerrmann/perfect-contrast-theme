@@ -107,9 +107,11 @@ def get_patches(plot):
     return patches
 
 
-def save_plot(name):
-    plt.savefig(os.path.join(FIGURE_PATH, name + ".pdf"), bbox_inches="tight")
-    plt.savefig(os.path.join(FIGURE_PATH, name + ".png"), bbox_inches="tight", dpi=300)
+def save_plot(name, pdf=False, png=False):
+    if pdf:
+        plt.savefig(os.path.join(FIGURE_PATH, name + ".pdf"), bbox_inches="tight")
+    if png:
+        plt.savefig(os.path.join(FIGURE_PATH, name + ".png"), bbox_inches="tight", dpi=300)
 
 
 def box_plot(df):
@@ -128,9 +130,13 @@ def box_plot(df):
     plt.axvline(x=1.5, color="black", linewidth=0.5)
 
     patches = get_patches(boxplot)
+    
     plt.legend(handles=patches)
+    save_plot("boxplot", pdf=True)
 
-    save_plot("boxplot")
+    plt.legend(handles=patches, bbox_to_anchor=(1.0, 1.0), loc="upper left")
+    save_plot("boxplot", png=True)
+
     plt.show()
 
 
@@ -155,9 +161,13 @@ def bar_plot(df):
     #     barplot.patches[i].set_edgecolor("black")
 
     patches = get_patches(barplot)
+    
     plt.legend(handles=patches, bbox_to_anchor=(1.0, 1.0), loc="upper left")
+    save_plot("barplot", pdf=True)
 
-    save_plot("barplot")
+    plt.legend([],[], frameon=False)
+    save_plot("barplot", png=True)
+
     plt.show()
 
 
