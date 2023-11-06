@@ -94,14 +94,14 @@ def make_theme_col(df):
 def get_patches(plot):
     count = 0
     for i in range(18):
-        plot.patches[i].set_hatch(HATCH_TYPE[count])
-        plot.patches[i].set_edgecolor(FORE_COLORS[count])
+        #plot.patches[i].set_hatch(HATCH_TYPE[count])
+        plot.patches[i].set_edgecolor("black")
         if (i + 1) % 3 == 0:
             count += 1
 
     patches = []
     for i in range(6):
-        p = mpatches.Patch(facecolor=BACK_COLORS[i], edgecolor=FORE_COLORS[i], hatch=HATCH_TYPE[i], label=LABELS[i])
+        p = mpatches.Patch(facecolor=BACK_COLORS[i], edgecolor="black", label=LABELS[i])
         patches.append(p)
 
     return patches
@@ -154,8 +154,8 @@ def bar_plot(df):
     plt.ylabel("Correctness Ratio")
     plt.title("Response Correctness per Theme")
 
-    plt.axvline(x=0.5, color="black", linewidth=0.5)
-    plt.axvline(x=1.5, color="black", linewidth=0.5)
+    # plt.axvline(x=0.5, color="black", linewidth=0.5)
+    # plt.axvline(x=1.5, color="black", linewidth=0.5)
 
     # for i in range(18):
     #     barplot.patches[i].set_edgecolor("black")
