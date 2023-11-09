@@ -28,12 +28,14 @@ Experiments were carried out on Fedora 38
 
 - [`trial_3_func.py`](trial_3_func.py): comprehension questions for third coding task
 
-### Data
+### Collected Data
 
-[`data`](data/): participant results
+- [`data`](data/): participant results
 
 ### Analysis
 
-[`results.py`](results.py): main experimental results (response times and response correctness)
+- [`results.py`](results.py): main experimental results (response times and response correctness)
 
-[`first_question_plot.py`](first_question_plot.py): visually highlights method error of not showing example question beforehand
+- [`first_question_plot.py`](first_question_plot.py): visually highlights method error of not showing example question beforehand
+
+- [`figures`](figures/): `pdf` figures from above two analysis scripts
